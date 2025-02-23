@@ -27,7 +27,7 @@ jobs:
             - run: git tag v${{ inputs.next-version }}
 
             - name: GoReleaser
-              uses: goreleaser/goreleaser-action@v4
+              uses: goreleaser/goreleaser-action@v6
               with:
                   version: latest
                   args: release --clean --timeout 60m
