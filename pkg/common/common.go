@@ -77,18 +77,19 @@ func parseJsonStrict[T any](r io.Reader) (*T, error) {
 }
 
 func convertK8sReportToReport(k8s *k8sReport.Report) *types.Report {
-	var results types.Results
-	for _, vuln := range k8s.Vulnerabilities {
-		results = append(results, vuln.Results...)
-	}
-	for _, misc := range k8s.Misconfigurations {
-		results = append(results, misc.Results...)
-	}
-
-	return &types.Report{
-		Results: results,
-	}
-}
+    var results types.Results
+    if k8s != nil {
+        for _, vuln := range k8s.Vulnerabilities {
+            if vuln.Results != nil {
+                results = append(results, vuln.Results...)
+            }
+        }
+        for _, misc := range k8s.Misconfigurations {
+            if misc.Results != nil {
+                results = append(results, misc.Results...)
+            }
+        }
+    }
 
 func GetPathToPluginDir(fileName string) (string, error) {
 	ex, err := os.Executable()
