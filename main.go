@@ -54,7 +54,7 @@ func removeFile(file string) {
 
 func closeFile(file *os.File) {
 	if err := file.Close(); err != nil {
-		log.Fatalf("failed to remove file %v", err)
+		log.Fatalf("failed to close file %v", err)
 	}
 }
 
