@@ -1,0 +1,10 @@
+name: "tunnel-go-plugin"
+repository: github.com/khulnasoft-lab/tunnel-go-plugin
+version: "0.0.1"
+usage: tunnel go plugin
+description: |-
+  A Tunnel plugin
+platforms:
+  -
+    uri: https://github.com/khulnasoft-lab/tunnel-go-plugin/releases/download/v0.0.1/tunnel-go-plugin_0.0.1_Linux-amd64.tar.gz
+    bin: ./tunnel-go-plugin
