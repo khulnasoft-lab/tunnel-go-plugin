@@ -59,16 +59,16 @@ func closeFile(file *os.File) {
 }
 
 func saveResult(filename string, result []byte) error {
-	file, err := os.Create(filename)
-	if err != nil {
-		return err
-	}
-	_, err = file.Write(result)
-	if err != nil {
-		return err
-	}
-	defer closeFile(file)
-	return nil
+    file, err := os.Create(filename)
+    if err != nil {
+        return err
+    }
+    defer closeFile(file)
+    _, err = file.Write(result)
+    if err != nil {
+        return err
+    }
+    return nil
 }
 
 func helpMessage() {
