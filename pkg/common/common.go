@@ -51,11 +51,11 @@ func readAndParseJson[T any](fileName string) (*T, error) {
 	}
 
 	defer func() {
-		err := f.Close()
-		if err != nil {
-			log.Println("failed to close file", err)
-		}
-	}()
+		defer func() {
+			if cerr := f.Close(); cerr != nil && err == nil {
+				err = fmt.Errorf("failed to close file: %w", cerr)
+			}
+		}()
 
 	return parseJsonStrict[T](f)
 }
@@ -115,9 +115,11 @@ func ReadPluginFile(fileName string) ([]byte, error) {
 	return os.ReadFile(path)
 }
 
-func MakeTunnelJsonReport(tunnelCommand []string, outputFileName string) error {
+import "context"
+
+func MakeTunnelJsonReport(ctx context.Context, tunnelCommand []string, outputFileName string) error {
 	cmdArgs := append(tunnelCommand, "--format", "json", "--output", outputFileName)
-	cmd := exec.Command("tunnel", cmdArgs...)
+	cmd := exec.CommandContext(ctx, "tunnel", cmdArgs...)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	if err := cmd.Run(); err != nil {
