@@ -17,7 +17,7 @@ jobs:
             next_version: ${{ steps.next-version.outputs.next_version }}
         steps:
             - name: Checkout
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
               with:
                   fetch-depth: 2
             - name: Get new version
